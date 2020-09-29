@@ -7,8 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "webpack --color --progress --config webpack.prod.js",
-    "start": "webpack-dev-server --color --progress --config webpack.dev.js"
+    "build": "webpack --color --progress --env production",
+    "start": "webpack-dev-server --color --progress"
   },
   "dependencies": {
     "@types/d3": "^5.7.2",
