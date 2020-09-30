@@ -1,7 +1,7 @@
 {
   "name": "critical_path_calc",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "src/app.ts",
   "repository": "git@github.com:MarioJim/critical_path_calc.git",
   "author": "MarioJim <mario.emilio.j@gmail.com>",
   "license": "MIT",

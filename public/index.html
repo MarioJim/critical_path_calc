@@ -13,7 +13,46 @@
     <header>
       <h1>Critical Path Calculator</h1>
     </header>
-    <div id="table-input"></div>
+    <div id="table-input">
+      <table>
+        <thead>
+          <tr>
+            <th>Activity</th>
+            <th>Predecessors</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <form>
+          <tbody>
+            <tr id="row0">
+              <td><p class="act-name">A (start)</p></td>
+              <td><input type="text" class="predec" /></td>
+              <td><input type="number" class="duration" /></td>
+            </tr>
+            <tr id="row1">
+              <td><p class="act-name">B</p></td>
+              <td><input type="text" class="predec" /></td>
+              <td><input type="number" class="duration" /></td>
+            </tr>
+            <tr id="row2">
+              <td><p class="act-name">C</p></td>
+              <td><input type="text" class="predec" /></td>
+              <td><input type="number" class="duration" /></td>
+            </tr>
+            <tr id="row3">
+              <td><p class="act-name">D (end)</p></td>
+              <td><input type="text" class="predec" /></td>
+              <td><input type="number" class="duration" /></td>
+            </tr>
+          </tbody>
+        </form>
+      </table>
+      <div>
+        <button id="add-row-btn">Add one row</button>
+        <button id="rmv-row-btn">Remove last row</button>
+      </div>
+    </div>
+    <button id="gen-graphs-btn">Generate graphs</button>
     <div id="cpm-graph" style="display: none"></div>
     <div id="pert-graph" style="display: none"></div>
   </body>
