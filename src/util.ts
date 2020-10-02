@@ -1,3 +1,4 @@
+import { SimulationLinkDatum } from './d3bundle';
 import { Activity } from './types';
 
 export const generateSuccessorsSets = (
@@ -14,3 +15,18 @@ export const generateSuccessorsSets = (
 
 export const numToLetter = (num: number): string =>
   String.fromCodePoint('A'.charCodeAt(0) + num);
+
+export const generateLinks = <T>(
+  activities: Activity[],
+): SimulationLinkDatum<T>[] => {
+  const links: SimulationLinkDatum<T>[] = [];
+  activities.forEach((act) => {
+    act.predecessors.forEach((predIdx) => {
+      links.push({
+        source: predIdx,
+        target: act.index,
+      });
+    });
+  });
+  return links;
+};

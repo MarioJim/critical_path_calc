@@ -18,6 +18,12 @@ header h1 {
   font-size: 30px;
 }
 
+#inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #table-input {
   display: flex;
   flex-direction: column;
@@ -52,4 +58,25 @@ button {
   font-size: 1em;
   padding: 8px 20px;
   display: inline;
+}
+
+#gen-graphs-btn {
+  margin: 60px;
+}
+
+#cpm-graph,
+#pert-graph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 {
+  text-align: center;
+  margin: 0;
+  font-size: 36px;
+}
+
+svg {
+  max-height: 100vh;
 }
