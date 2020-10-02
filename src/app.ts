@@ -1,7 +1,7 @@
 import { addRow, delRow } from './buttons';
 import { generateCPMGraph } from './cpm_graph';
 import { generatePERTGraph } from './pert_graph';
-import { Activity } from './types';
+import { validateAndParseActivities } from './validate_input';
 
 document.addEventListener('readystatechange', () => {
   if (document.readyState === 'interactive') {
@@ -12,25 +12,12 @@ document.addEventListener('readystatechange', () => {
 });
 
 const generateGraphs = () => {
-  const activities = parseActivities();
+  const { activities, error } = validateAndParseActivities();
+  if (!!error) {
+    console.error(error);
+    return;
+  }
   console.log(activities);
   generateCPMGraph(activities);
   generatePERTGraph(activities);
 };
-
-const parseActivities = (): Activity[] =>
-  [...document.querySelectorAll('tbody > tr')].map((row, index, rows) => {
-    const pred = (row.querySelector('input.predec') as HTMLInputElement).value
-      .split(',')
-      .map((str) => str.trim().toUpperCase())
-      .filter((str) => str.length === 1)
-      .map((str) => str.charCodeAt(0) - 'A'.charCodeAt(0))
-      .filter((num) => num >= 0 && num < rows.length && num !== index);
-    return {
-      index,
-      predecessors: [...new Set(pred)],
-      duration: parseFloat(
-        (row.querySelector('input.duration') as HTMLInputElement).value,
-      ),
-    };
-  });

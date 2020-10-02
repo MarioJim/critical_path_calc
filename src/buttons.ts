@@ -1,3 +1,5 @@
+import { numToLetter } from './util';
+
 export const addRow = () => {
   const tbody = document.getElementsByTagName('tbody')[0];
   const numRows = tbody.getElementsByTagName('tr').length;
@@ -35,6 +37,3 @@ export const delRow = () => {
     numToLetter(numRows - 2) + ' (end)';
   document.getElementById(`row${numRows - 1}`).remove();
 };
-
-export const numToLetter = (num: number): string =>
-  String.fromCodePoint('A'.charCodeAt(0) + num);

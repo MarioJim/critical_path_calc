@@ -1,5 +1,5 @@
-import { numToLetter } from './buttons';
 import { Activity, ActivityCPM } from './types';
+import { generateSuccessorsSets, numToLetter } from './util';
 
 export const generateCPMGraph = (activities: Activity[]) => {
   const activitiesCPM = generateActivities(activities);
@@ -41,13 +41,8 @@ const generateActivities = (activities: Activity[]): ActivityCPM[] => {
   const lastStartTime =
     activitiesCPM[activitiesCPM.length - 1].earliestStartTime;
   activitiesCPM[activitiesCPM.length - 1].latestStartTime = lastStartTime;
-  const successorsSet = activitiesCPM.map((_) => new Set<number>());
-  activitiesCPM.forEach((act) => {
-    act.predecessors.forEach((predIdx) => {
-      successorsSet[predIdx].add(act.index);
-    });
-  });
-  const successors = successorsSet.map((set) => [...set]);
+  const successorsSets = generateSuccessorsSets(activitiesCPM);
+  const successors = successorsSets.map((set) => [...set]);
   // Calculate greatest start time for every activity
   queue = activities.map((a) => a.index);
   while (queue.length > 0) {
