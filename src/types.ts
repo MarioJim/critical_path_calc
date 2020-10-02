@@ -4,7 +4,7 @@ export interface Activity {
   duration: number;
 }
 
-export interface ActivityCPM extends Activity {
+export interface ActivityWithTimes extends Activity {
   earliestStartTime: number;
   latestStartTime: number;
 }

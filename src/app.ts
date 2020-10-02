@@ -1,4 +1,5 @@
 import { addRow, delRow } from './buttons';
+import { calculateActivitiesWithTimes } from './calculate_times';
 import { generateCPMGraph } from './cpm_graph';
 import { generatePERTGraph } from './pert_graph';
 import { validateAndParseActivities } from './validate_input';
@@ -17,7 +18,8 @@ const generateGraphs = () => {
     console.error(error);
     return;
   }
+  const activitiesWithTimes = calculateActivitiesWithTimes(activities);
   console.log(activities);
-  generateCPMGraph(activities);
-  generatePERTGraph(activities);
+  generateCPMGraph(activitiesWithTimes);
+  generatePERTGraph(activitiesWithTimes);
 };
