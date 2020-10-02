@@ -24,20 +24,11 @@ document.addEventListener('readystatechange', () => {
 const generateGraphs = () => {
   const { activities, error } = validateAndParseActivities();
   if (!!error) {
-    console.error(error);
+    document.getElementById('error-msg').innerText = error;
     return;
   }
+  document.getElementById('error-msg').innerText = '';
   const activitiesWithTimes = calculateActivitiesWithTimes(activities);
-  console.log(
-    activitiesWithTimes
-      .map(
-        (act) =>
-          `activ ${numToLetter(act.index)} sst ${act.earliestStartTime.toFixed(
-            2,
-          )} gst ${act.latestStartTime.toFixed(2)}`,
-      )
-      .join('\n'),
-  );
   generateCPMGraph(activitiesWithTimes);
   generatePERTGraph(activitiesWithTimes);
 };
