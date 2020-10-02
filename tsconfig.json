@@ -6,9 +6,6 @@
     "target": "es6",
     "allowJs": true,
     "sourceMap": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ]
+    "lib": ["ESNext", "DOM", "DOM.Iterable"]
   }
 }

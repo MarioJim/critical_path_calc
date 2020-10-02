@@ -3,13 +3,27 @@ export const addRow = () => {
   const numRows = tbody.getElementsByTagName('tr').length;
   const row = document.getElementById(`row${numRows - 1}`);
   row.getElementsByTagName('p')[0].innerText = numToLetter(numRows - 1);
-  tbody.innerHTML += `
-    <tr id="row${numRows}">
-      <td><p class="act-name">${numToLetter(numRows)} (end)</p></td>
-      <td><input type="text" class="predec" /></td>
-      <td><input type="number" class="duration" /></td>
-    </tr>
-  `;
+  const tr = document.createElement('tr');
+  tr.id = `row${numRows}`;
+  const act_name = document.createElement('p');
+  act_name.innerText = numToLetter(numRows) + ' (end)';
+  act_name.classList.add('act-name');
+  const td_act_name = document.createElement('td');
+  td_act_name.appendChild(act_name);
+  tr.appendChild(td_act_name);
+  const inp_predec = document.createElement('input');
+  inp_predec.type = 'text';
+  inp_predec.classList.add('predec');
+  const td_inp_predec = document.createElement('td');
+  td_inp_predec.appendChild(inp_predec);
+  tr.appendChild(td_inp_predec);
+  const inp_duration = document.createElement('input');
+  inp_duration.type = 'number';
+  inp_duration.classList.add('duration');
+  const td_inp_duration = document.createElement('td');
+  td_inp_duration.appendChild(inp_duration);
+  tr.appendChild(td_inp_duration);
+  tbody.appendChild(tr);
 };
 
 export const delRow = () => {
@@ -22,5 +36,5 @@ export const delRow = () => {
   document.getElementById(`row${numRows - 1}`).remove();
 };
 
-const numToLetter = (num: number): string =>
+export const numToLetter = (num: number): string =>
   String.fromCodePoint('A'.charCodeAt(0) + num);

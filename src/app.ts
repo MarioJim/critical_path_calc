@@ -12,12 +12,25 @@ document.addEventListener('readystatechange', () => {
 });
 
 const generateGraphs = () => {
-  const rows = document.querySelectorAll('tbody > tr');
-  const activities = parseActivities(rows);
+  const activities = parseActivities();
+  console.log(activities);
   generateCPMGraph(activities);
   generatePERTGraph(activities);
 };
 
-const parseActivities = (rows: NodeListOf<Element>): Activity[] => {
-  return [];
-};
+const parseActivities = (): Activity[] =>
+  [...document.querySelectorAll('tbody > tr')].map((row, index, rows) => {
+    const pred = (row.querySelector('input.predec') as HTMLInputElement).value
+      .split(',')
+      .map((str) => str.trim().toUpperCase())
+      .filter((str) => str.length === 1)
+      .map((str) => str.charCodeAt(0) - 'A'.charCodeAt(0))
+      .filter((num) => num >= 0 && num < rows.length && num !== index);
+    return {
+      index,
+      predecessors: [...new Set(pred)],
+      duration: parseFloat(
+        (row.querySelector('input.duration') as HTMLInputElement).value,
+      ),
+    };
+  });
