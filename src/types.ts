@@ -5,6 +5,6 @@ export interface Activity {
 }
 
 export interface ActivityCPM extends Activity {
-  smallestStartTime: number;
-  greatestStartTime: number;
+  earliestStartTime: number;
+  latestStartTime: number;
 }
