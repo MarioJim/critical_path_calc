@@ -2,14 +2,15 @@ import { addRow, delRow } from './buttons';
 import { calculateActivitiesWithTimes } from './calculate_times';
 import { generateCPMGraph } from './cpm_graph';
 import { generatePERTGraph } from './pert_graph';
-import { LinkCPM, NodeCPM } from './types';
-import { numToLetter } from './util';
+import { LinkCPM, LinkPERT, NodeCPM, NodePERT } from './types';
 import { validateAndParseActivities } from './validate_input';
 
 declare global {
   interface Window {
     cpm_nodes: NodeCPM[];
     cpm_links: LinkCPM[];
+    pert_nodes: NodePERT[];
+    pert_links: LinkPERT[];
   }
 }
 

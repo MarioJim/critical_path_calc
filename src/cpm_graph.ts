@@ -1,14 +1,14 @@
 import * as d3 from './d3bundle';
-import { ActivityWithTimes, NodeCPM } from './types';
-import { generateLinks, numToLetter } from './util';
+import { ActivityWithTimes, LinkCPM, NodeCPM } from './types';
+import { numToLetter } from './util';
 
-const width = 800;
-const height = 600;
+const width = 900;
+const height = 700;
 const circleRadius = 30;
 
 export const generateCPMGraph = (activities: ActivityWithTimes[]) => {
   window.cpm_nodes = generateNodes(activities);
-  window.cpm_links = generateLinks<NodeCPM>(activities);
+  window.cpm_links = generateLinks(activities);
 
   const page = d3.select('#cpm-graph');
   page.style('display', 'block');
@@ -37,8 +37,7 @@ export const generateCPMGraph = (activities: ActivityWithTimes[]) => {
     .attr('class', '.edgepath')
     .attr('fill-opacity', 0)
     .attr('stroke', '#000')
-    .attr('id', (_, i) => `edgepath-${i}`)
-    .attr('marker-end', () => 'url(#arrowhead)')
+    .attr('marker-end', 'url(#arrowhead)')
     .style('pointer-events', 'none');
 
   // Add circles for every node
@@ -137,6 +136,19 @@ const generateNodes = (activities: ActivityWithTimes[]): NodeCPM[] =>
     duration,
     latestStartTime,
   }));
+
+const generateLinks = (activities: ActivityWithTimes[]): LinkCPM[] => {
+  const links: LinkCPM[] = [];
+  activities.forEach((act) => {
+    act.predecessors.forEach((predIdx) => {
+      links.push({
+        source: predIdx,
+        target: act.index,
+      });
+    });
+  });
+  return links;
+};
 
 const getColor = (node: NodeCPM): string => {
   // Starting and ending nodes

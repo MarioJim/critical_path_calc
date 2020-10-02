@@ -23,3 +23,14 @@ export interface NodeCPM extends SimulationNodeDatum {
 }
 
 export interface LinkCPM extends SimulationLinkDatum<NodeCPM> {}
+
+export interface NodePERT extends SimulationNodeDatum {
+  earliestStartTime: number;
+  latestStartTime: number;
+}
+
+export interface LinkPERT extends SimulationLinkDatum<NodePERT> {
+  name: string;
+  duration: number;
+  isCriticalPath: boolean;
+}
