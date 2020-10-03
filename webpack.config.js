@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = (env) => {
-  const isProd = env?.production;
+  const isProd = env && env.production;
   const common = {
     entry: './src/app.ts',
     mode: isProd ? 'production' : 'development',
