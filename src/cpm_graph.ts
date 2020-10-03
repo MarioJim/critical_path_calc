@@ -1,9 +1,13 @@
+import {
+  addArrowheadMarker,
+  dragFunction,
+  height,
+  width,
+} from './common_graphs';
 import * as d3 from './d3bundle';
 import { ActivityWithTimes, LinkCPM, NodeCPM } from './types';
 import { numToLetter } from './util';
 
-const width = 900;
-const height = 700;
 const circleRadius = 30;
 
 export const generateCPMGraph = (activities: ActivityWithTimes[]) => {
@@ -17,16 +21,7 @@ export const generateCPMGraph = (activities: ActivityWithTimes[]) => {
 
   // Add defs to use a marker as an arrowhead
   const defs = svg.append('defs');
-  defs
-    .append('marker')
-    .attr('id', 'arrowhead')
-    .attr('viewBox', '-0 -5 10 10')
-    .attr('refX', circleRadius + 3)
-    .attr('orient', 'auto')
-    .attr('markerWidth', 13)
-    .attr('markerHeight', 13)
-    .append('path')
-    .attr('d', 'M0,-5 L10,0 L0,5');
+  addArrowheadMarker(defs, circleRadius, 'arrowhead');
 
   // Add lines for every link
   const edgepaths = svg
@@ -109,24 +104,7 @@ export const generateCPMGraph = (activities: ActivityWithTimes[]) => {
     });
 
   // Add mouse drag to the nodes
-  const dragFunction = d3
-    .drag<Element, NodeCPM>()
-    .on('start', (event, node) => {
-      event.sourceEvent.stopPropagation();
-      if (!event.active) forceSim.alphaTarget(0.3).restart();
-      node.fx = node.x;
-      node.fy = node.y;
-    })
-    .on('drag', (event, node) => {
-      node.fx = event.x;
-      node.fy = event.y;
-    })
-    .on('end', (event, node) => {
-      if (!event.active) forceSim.alphaTarget(0);
-      node.fx = null;
-      node.fy = null;
-    });
-  node.call(dragFunction as any);
+  node.call(dragFunction(forceSim) as any);
 };
 
 const generateNodes = (activities: ActivityWithTimes[]): NodeCPM[] =>
