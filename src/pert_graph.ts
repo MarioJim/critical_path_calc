@@ -97,8 +97,8 @@ export const generatePERTGraph = (activities: ActivityWithTimes[]) => {
   // Add force simulation
   const forceSim = d3
     .forceSimulation(window.pert_nodes)
-    .force('link', d3.forceLink(window.pert_links).distance(150).strength(0.8))
-    .force('charge', d3.forceManyBody().strength(-400))
+    .force('link', d3.forceLink(window.pert_links).distance(150).strength(1))
+    .force('charge', d3.forceManyBody().strength(-1000))
     .force('center', d3.forceCenter(width / 2, height / 2))
     .on('tick', () => {
       node.attr('transform', (d) => `translate(${d.x},${d.y})`);
